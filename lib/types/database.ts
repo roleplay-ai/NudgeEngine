@@ -1,4 +1,4 @@
-export type Role = 'hr' | 'participant' | 'trainer';
+export type Role = 'superadmin' | 'hr' | 'participant' | 'trainer';
 export type CohortPhase = 'pre' | 'live' | 'post' | 'completed';
 export type ActionStatus = 'pending' | 'active' | 'done';
 export type ActionCategory = 'Feedback' | 'Coaching' | 'Motivation' | 'Self' | 'Custom';

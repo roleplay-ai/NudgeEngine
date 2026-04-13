@@ -11,10 +11,10 @@ interface SidebarProps {
 export default function Sidebar({ screen, onNavigate }: SidebarProps) {
   const { profile, role, signOut } = useAuth();
 
-  const avatarColor = role === 'hr' ? '#623CEA' : role === 'trainer' ? '#F68A29' : '#23CE68';
+  const avatarColor = role === 'superadmin' ? '#623CEA' : role === 'hr' ? '#3699FC' : role === 'trainer' ? '#F68A29' : '#23CE68';
   const initials = profile?.avatar_initials ?? profile?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) ?? '??';
   const displayName = profile?.full_name ?? 'User';
-  const roleLabel = role === 'hr' ? 'HR Manager' : role === 'trainer' ? 'Trainer' : 'Participant';
+  const roleLabel = role === 'superadmin' ? 'Super Admin' : role === 'hr' ? 'HR Manager' : role === 'trainer' ? 'Trainer' : 'Participant';
 
   const navItem = (s: Screen, icon: React.ReactNode, label: string, color: string) => {
     const isActive = screen === s;
@@ -37,9 +37,27 @@ export default function Sidebar({ screen, onNavigate }: SidebarProps) {
       <div className="sidebar-logo">
         <div className="brand">Nudgeable.ai</div>
         <div className="role-sub">
-          {role === 'hr' ? 'HR Dashboard' : role === 'participant' ? 'Participant Portal' : 'Trainer View'}
+          {role === 'superadmin' ? 'Super Admin Console'
+            : role === 'hr' ? 'HR Dashboard'
+            : role === 'participant' ? 'Participant Portal'
+            : 'Trainer View'}
         </div>
       </div>
+
+      {/* Super Admin Nav */}
+      {role === 'superadmin' && (
+        <div className="nav-section">
+          <div style={{ padding: '10px 18px 4px', fontSize: '9px', fontWeight: 800, color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: '1.2px' }}>Platform Admin</div>
+          {navItem('sa-orgs',
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="11" height="11" rx="2.5" stroke="#9B72F8" strokeWidth="1.4"/><path d="M4 8.5h6M4 5.5h6" stroke="#9B72F8" strokeWidth="1.2" strokeLinecap="round"/></svg>,
+            'Organisations', 'rgba(155,114,248,0.18)'
+          )}
+          {navItem('sa-users',
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="4.5" cy="4.5" r="2" stroke="#F68A29" strokeWidth="1.4"/><circle cx="9.5" cy="4.5" r="2" stroke="#F68A29" strokeWidth="1.4"/><path d="M1 11.5c0-1.9 1.6-3.5 3.5-3.5s3.5 1.6 3.5 3.5" stroke="#F68A29" strokeWidth="1.4" strokeLinecap="round"/><path d="M10.5 8.5c1.4 0 2.5 1.1 2.5 2.5" stroke="#F68A29" strokeWidth="1.4" strokeLinecap="round"/></svg>,
+            'Users', 'rgba(246,138,41,0.18)'
+          )}
+        </div>
+      )}
 
       {/* HR Nav */}
       {role === 'hr' && (

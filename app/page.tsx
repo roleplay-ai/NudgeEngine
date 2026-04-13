@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Screen, HRScreen, ParticipantScreen, TrainerScreen } from './types';
+import { Screen, SuperAdminScreen, HRScreen, ParticipantScreen, TrainerScreen } from './types';
 import { useAuth } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
 
@@ -27,6 +27,9 @@ import Social from './components/participant/Social';
 
 // Trainer
 import TrainerViews from './components/trainer/TrainerViews';
+
+// Super Admin
+import SuperAdminViews from './components/superadmin/SuperAdminViews';
 
 interface Toast {
   id: number;
@@ -73,6 +76,7 @@ export default function App() {
 
   // Determine current screen (use explicit state or role default)
   const defaultScreens: Record<string, Screen> = {
+    superadmin: 'sa-orgs',
     hr: 'hr-impact',
     participant: 'p-pre-home',
     trainer: 't-overview',
@@ -80,6 +84,11 @@ export default function App() {
   const currentScreen: Screen = screen ?? (role ? defaultScreens[role] : 'hr-impact');
 
   const renderView = () => {
+    if (role === 'superadmin') {
+      const saNav = (s: SuperAdminScreen) => handleNavigate(s);
+      return <SuperAdminViews screen={currentScreen as SuperAdminScreen} onNavigate={saNav} onToast={showToast} />;
+    }
+
     if (role === 'hr') {
       const hrNav = (s: HRScreen) => handleNavigate(s);
       switch (currentScreen) {

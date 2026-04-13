@@ -1,6 +1,10 @@
 // Re-export shared role type from the database types
 export type { Role } from '../lib/types/database';
 
+export type SuperAdminScreen =
+  | 'sa-orgs'
+  | 'sa-users';
+
 export type HRScreen =
   | 'hr-impact'
   | 'hr-dashboard'
@@ -27,4 +31,4 @@ export type TrainerScreen =
   | 't-posttraining'
   | 't-community';
 
-export type Screen = HRScreen | ParticipantScreen | TrainerScreen;
+export type Screen = SuperAdminScreen | HRScreen | ParticipantScreen | TrainerScreen;
