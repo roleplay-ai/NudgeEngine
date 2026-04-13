@@ -119,7 +119,7 @@ export default function LoginPage() {
         </button>
       </form>
 
-      {/* Role hint */}
+      {/* Demo accounts */}
       <div style={{
         marginTop: 28,
         padding: '14px 16px',
@@ -128,17 +128,18 @@ export default function LoginPage() {
         borderRadius: 'var(--radius-md)',
       }}>
         <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--princeton-orange)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>
-          Demo accounts
+          Demo accounts — password = email
         </div>
         {[
-          { role: 'HR Manager', email: 'hr@demo.com', color: 'var(--majorelle-blue)' },
-          { role: 'Participant', email: 'participant@demo.com', color: 'var(--emerald)' },
-          { role: 'Trainer', email: 'trainer@demo.com', color: 'var(--princeton-orange)' },
+          { role: 'Super Admin', email: 'superadmin@nudgeengine', color: '#623CEA' },
+          { role: 'HR Manager',  email: 'hr@nudgeengine',         color: 'var(--dodger-blue)' },
+          { role: 'Participant', email: 'participant@nudgeengine', color: 'var(--princeton-orange)' },
+          { role: 'Trainer',     email: 'trainer@nudgeengine',    color: 'var(--emerald)' },
         ].map(({ role, email: demoEmail, color }) => (
           <button
             key={demoEmail}
             type="button"
-            onClick={() => { setEmail(demoEmail); setPassword('demo1234'); }}
+            onClick={() => { setEmail(demoEmail); setPassword(demoEmail); }}
             style={{
               display: 'flex', alignItems: 'center', gap: 8,
               width: '100%', background: 'none', border: 'none',
@@ -154,9 +155,6 @@ export default function LoginPage() {
             <span style={{ fontSize: 11, color: 'var(--color-text-muted)', marginLeft: 'auto' }}>{demoEmail}</span>
           </button>
         ))}
-        <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 8 }}>
-          Password for all demo accounts: <strong>demo1234</strong>
-        </div>
       </div>
     </div>
   );
